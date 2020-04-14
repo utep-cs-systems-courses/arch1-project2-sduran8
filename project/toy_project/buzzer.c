@@ -89,13 +89,13 @@ void test() {
 		1000, 900, 800, 700, 600, 500, 400, 300, 200,
 		100};
   while(i < sizeof(song)) {
-   int s_loop = 0;
-   while(s_loop < 30000) {
-     s_loop++;
-     dim_setting(); //Changed the dim setting
-     update_dim();  //Updates the dim
-     led_update();
-   }
+    int s_loop = 0;
+    while(s_loop < 30000) {
+      s_loop++;
+      dim_setting(); //Changed the dim setting
+      update_dim_a(); //Updates the dim
+      led_update();
+    }
     buzzer_set_period(song[i]);
     next_state(); //Changes the LED state
     i++;

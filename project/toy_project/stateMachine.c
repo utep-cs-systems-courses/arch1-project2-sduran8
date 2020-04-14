@@ -2,9 +2,9 @@
 #include "stateMachine.h"
 #include "led.h"
 
-//Dim 
-static enum {off=0, dim=1, bright=2} led_mode;
-static char count = 0;
+//Dim
+extern enum {off=0, dim=1, bright=2} led_mode=0;
+extern char count = 0;
 
 //Toggles Red LED, ON if OFF, OFF if ON
 char toggle_red() {
@@ -74,19 +74,19 @@ void next_state() {
 }
 
 void dim_setting() {
-  count = (count + 1) & 3; //controls whether dim occurs in state dim (1,2 TRUE 0,3... FALSE)
+  count = (count + 1) & 3; //controls whether dim occurs in state dim (0 is TRUE 1,2,3... FALSE)
 }
 
 //Depending on led_mode & count, will change the dim setting of the Red LED
 void update_dim() {
-  char new_red;
+ static unsigned char new_red;
   switch (led_mode) {
   case off:
     new_red = 0; break;
-  case bright:
-    new_red = 1; break;
   case dim:
     new_red = (count < 1); break;
+  case bright:
+    new_red = 1; break;
   }
   if (red_on != new_red) {
     red_on = new_red;
